@@ -17,6 +17,10 @@ public class InputView {
         String numbers = Console.readLine();
         return convertToList(numbers);
     }
+    public int getBonusNumber(){
+        System.out.println(GameMessage.INPUT_BONUS_NUMBER);
+        return Integer.valueOf(Console.readLine());
+    }
     private List<Integer> convertToList(String luckyNumbers){
        List<Integer> convertedNumbers = new ArrayList<>();
         String[] numbers = luckyNumbers.split(",");

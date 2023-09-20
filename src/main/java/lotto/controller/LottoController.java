@@ -19,6 +19,6 @@ public class LottoController {
         List<List<Integer>> lottos = generator.generate(count);
         outputView.printLottos(count, lottos);
 
-
+        List<Integer> luckyNumbers = inputView.getLuckyNumbers();
     }
 }

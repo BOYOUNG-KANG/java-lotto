@@ -16,7 +16,8 @@ public class LottoController {
     LottoGenerator generator = new LottoGenerator();
 
     public void playGame(){
-        LottoCount lottoCount = new LottoCount(inputView.getPayment());
+        int payment = inputView.getPayment();
+        LottoCount lottoCount = new LottoCount(payment);
         int count = lottoCount.getLottoCount();
 
         List<List<Integer>> lottos = generator.generate(count);
@@ -28,9 +29,9 @@ public class LottoController {
         int bonusNumber = inputView.getBonusNumber();
         lotto.updateBonusNumber(bonusNumber);
         lotto.updateLottos(lottos);
-        
+
         LottoComputer computer = new LottoComputer();
         Map<Enum, Integer> scoreBoard = computer.computeScore(lottos, luckyNumbers, bonusNumber);
-
+        String profit = computer.computeProfit(payment, scoreBoard);
     }
 }

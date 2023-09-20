@@ -10,4 +10,5 @@ public class LottoConstant {
     public static final Integer REWARD_FIVE = 1500000;
     public static final Integer REWARD_FIVE_AND_BONUS = 30000000;
     public static final Integer REWARD_SIX = 2000000000;
+    public static final Integer HUNDRED = 100;
 }

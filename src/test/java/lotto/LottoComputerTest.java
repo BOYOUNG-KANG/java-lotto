@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,5 +70,36 @@ public class LottoComputerTest {
         Assertions.assertThat(score.get(Score.THREE_MATCH)).isEqualTo(1);
         Assertions.assertThat(score.get(Score.FIVE_AND_BONUS_MATCH)).isEqualTo(1);
         Assertions.assertThat(score.get(Score.SIX_MATCH)).isEqualTo(2);
+    }
+    @DisplayName("수익률 구하기 - 수익률 0%")
+    @Test
+    void profit1(){
+        LottoComputer computer = new LottoComputer();
+        Map<Enum, Integer> scoreBoard = new HashMap<>();
+        scoreBoard.putAll(Map.of(
+                Score.THREE_MATCH, 0,
+                Score.FOUR_MATCH, 0,
+                Score.FIVE_MATCH, 0,
+                Score.FIVE_AND_BONUS_MATCH, 0,
+                Score.SIX_MATCH, 0
+        ));
+        String profit = computer.computeProfit(8000, scoreBoard);
+        Assertions.assertThat(profit).isEqualTo("0.00");
+    }
+
+    @DisplayName("수익률 구하기 - 수익률 62.5%")
+    @Test
+    void profit2(){
+        LottoComputer computer = new LottoComputer();
+        Map<Enum, Integer> scoreBoard = new HashMap<>();
+        scoreBoard.putAll(Map.of(
+                Score.THREE_MATCH, 1,
+                Score.FOUR_MATCH, 0,
+                Score.FIVE_MATCH, 0,
+                Score.FIVE_AND_BONUS_MATCH, 0,
+                Score.SIX_MATCH, 0
+        ));
+        String profit = computer.computeProfit(8000, scoreBoard);
+        Assertions.assertThat(profit).isEqualTo("62.50");
     }
 }

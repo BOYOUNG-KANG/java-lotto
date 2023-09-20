@@ -1,17 +1,47 @@
 package lotto.domain;
 
+import lotto.constant.LottoConstant;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class LottoComputer {
     private Map<Enum, Integer> scoreBoard = new HashMap<>();
-    private float profitRate;
+    private Map<Enum, Integer> rewardBoard = new HashMap<>();
 
     public Map<Enum, Integer> computeScore(List<List<Integer>> lottos, List<Integer> luckyNumbers, int bonusNumber){
         setUpScoreBoard();
         matchScore(lottos, luckyNumbers, bonusNumber);
         return scoreBoard;
+    }
+    public String computeProfit(int payment, Map<Enum, Integer> scoreBoard){
+        setUpRewordBoard();
+        float totalReward = countTotalReward(scoreBoard);
+        return getProfit(totalReward, payment);
+    }
+
+    private static String getProfit(float totalReward, int payment) {
+        float pay = payment;
+        float profit = totalReward / pay * LottoConstant.HUNDRED;
+        return String.format("%.2f", profit);
+    }
+
+    private int countTotalReward(Map<Enum, Integer> scoreBoard) {
+        int totalReward = 0;
+        totalReward = getReward(scoreBoard, totalReward, Score.THREE_MATCH);
+        totalReward = getReward(scoreBoard, totalReward, Score.FOUR_MATCH);
+        totalReward = getReward(scoreBoard, totalReward, Score.FIVE_MATCH);
+        totalReward = getReward(scoreBoard, totalReward, Score.FIVE_AND_BONUS_MATCH);
+        totalReward = getReward(scoreBoard, totalReward, Score.SIX_MATCH);
+        return totalReward;
+    }
+
+    private int getReward(Map<Enum, Integer> scoreBoard, int totalReward, Score score) {
+        Integer count = scoreBoard.get(score);
+        Integer reward = rewardBoard.get(score);
+        totalReward += count * reward;
+        return totalReward;
     }
 
     private void matchScore(List<List<Integer>> lottos, List<Integer> luckyNumbers, int bonusNumber) {
@@ -60,9 +90,6 @@ public class LottoComputer {
         return luckyNumberScore;
     }
 
-    public void computeProfit(){
-
-    }
     private void setUpScoreBoard(){
         scoreBoard.putAll(Map.of(
                 Score.THREE_MATCH, 0,
@@ -70,6 +97,15 @@ public class LottoComputer {
                 Score.FIVE_MATCH, 0,
                 Score.FIVE_AND_BONUS_MATCH, 0,
                 Score.SIX_MATCH, 0
+        ));
+    }
+    private void setUpRewordBoard(){
+        rewardBoard.putAll(Map.of(
+                Score.THREE_MATCH, LottoConstant.REWARD_THREE,
+                Score.FOUR_MATCH, LottoConstant.REWARD_FOUR,
+                Score.FIVE_MATCH, LottoConstant.REWARD_FIVE,
+                Score.FIVE_AND_BONUS_MATCH, LottoConstant.REWARD_FIVE_AND_BONUS,
+                Score.SIX_MATCH, LottoConstant.REWARD_SIX
         ));
     }
 }

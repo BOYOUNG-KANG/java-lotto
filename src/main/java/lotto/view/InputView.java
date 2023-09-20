@@ -28,7 +28,6 @@ public class InputView {
             Integer convertedNumber = Integer.valueOf(number);
             convertedNumbers.add(convertedNumber);
         }
-        System.out.println("convertedNumbers = " + convertedNumbers);
         return convertedNumbers;
     }
 }

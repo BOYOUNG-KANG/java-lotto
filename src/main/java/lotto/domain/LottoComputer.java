@@ -2,6 +2,8 @@ package lotto.domain;
 
 import lotto.constant.LottoConstant;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +26,9 @@ public class LottoComputer {
     private static String getProfit(float totalReward, int payment) {
         float pay = payment;
         float profit = totalReward / pay * LottoConstant.HUNDRED;
-        return String.format("%.2f", profit);
+        DecimalFormat format = new DecimalFormat("#.##");
+        format.setRoundingMode(RoundingMode.HALF_UP);
+        return format.format(profit);
     }
 
     private int countTotalReward(Map<Enum, Integer> scoreBoard) {

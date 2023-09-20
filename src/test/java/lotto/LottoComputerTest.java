@@ -84,7 +84,7 @@ public class LottoComputerTest {
                 Score.SIX_MATCH, 0
         ));
         String profit = computer.computeProfit(8000, scoreBoard);
-        Assertions.assertThat(profit).isEqualTo("0.00");
+        Assertions.assertThat(profit).isEqualTo("0");
     }
 
     @DisplayName("수익률 구하기 - 수익률 62.5%")
@@ -100,6 +100,6 @@ public class LottoComputerTest {
                 Score.SIX_MATCH, 0
         ));
         String profit = computer.computeProfit(8000, scoreBoard);
-        Assertions.assertThat(profit).isEqualTo("62.50");
+        Assertions.assertThat(profit).isEqualTo("62.5");
     }
 }

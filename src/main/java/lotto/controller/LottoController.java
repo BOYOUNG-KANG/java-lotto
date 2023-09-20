@@ -33,5 +33,7 @@ public class LottoController {
         LottoComputer computer = new LottoComputer();
         Map<Enum, Integer> scoreBoard = computer.computeScore(lottos, luckyNumbers, bonusNumber);
         String profit = computer.computeProfit(payment, scoreBoard);
+        outputView.printRewardScore(scoreBoard);
+        outputView.printProfit(profit);
     }
 }

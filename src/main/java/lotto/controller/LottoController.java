@@ -1,5 +1,6 @@
 package lotto.controller;
 
+import lotto.domain.Lotto;
 import lotto.domain.LottoGenerator;
 import lotto.domain.LottoCount;
 import lotto.view.InputView;
@@ -10,16 +11,22 @@ import java.util.List;
 public class LottoController {
     InputView inputView = new InputView();
     OutputView outputView = new OutputView();
+    LottoGenerator generator = new LottoGenerator();
 
     public void playGame(){
         LottoCount lottoCount = new LottoCount(inputView.getPayment());
         int count = lottoCount.getLottoCount();
 
-        LottoGenerator generator = new LottoGenerator();
         List<List<Integer>> lottos = generator.generate(count);
         outputView.printLottos(count, lottos);
 
         List<Integer> luckyNumbers = inputView.getLuckyNumbers();
+        Lotto lotto = new Lotto(luckyNumbers);
+
         int bonusNumber = inputView.getBonusNumber();
+        lotto.updateBonusNumber(bonusNumber);
+        lotto.updateLottos(lottos);
+
+
     }
 }

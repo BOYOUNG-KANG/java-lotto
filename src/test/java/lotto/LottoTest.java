@@ -38,6 +38,7 @@ class LottoTest {
             new Lotto(List.of(1, 2, 3, 4, 7, 5));
         });
     }
+
     @DisplayName("보너스 번호에 중복된 숫자가 있으면 예외가 발생한다.")
     @Test
     void 보너스번호_중복_예외() {
